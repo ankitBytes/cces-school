@@ -60,7 +60,7 @@ const SectionAccordion = (props) => {
       TransitionProps={{ unmountOnExit: true }}
       sx={{
         "& .MuiAccordionSummary-root": {
-          background: expanded ? "#fda" : "white",
+          background: expanded ? "#91e1fa" : "#e1f4fa",
         },
       }}
     >
@@ -71,9 +71,9 @@ const SectionAccordion = (props) => {
           alignItems={"center"}
           sx={{ width: "100%", marginLeft: ".5rem" }}
         >
-          <Typography>{heading}</Typography>
+          <Typography variant="body1">{heading}</Typography>
           <Typography
-            variant="subtitle2"
+            variant="body2"
             color={formStatus[sectionId] === true ? "green" : "red"}
           >
             {formStatus[sectionId] === true ? "success" : "pending"}
@@ -101,7 +101,7 @@ SectionAccordion.propTypes = {
   onChange: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
   heading: PropTypes.string.isRequired,
-  section_form: PropTypes.func,
+  section_form: PropTypes.func.isRequired,
   formStatus: PropTypes.object,
   others: PropTypes.any,
 };

@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import Stack from "@mui/material/Stack";
-import { useNavigate } from "react-router-dom";
 import OptionForm from "./option-form";
 import NextButton from "./next-button";
 
-export default function SectionB1(props) {
-  const { formStatus, set_formStatus } = props;
-
-  const navigate = useNavigate();
+import { ccesformStatus } from "../contexts/formContexts";
+export default function SectionB1() {
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
+    useContext(ccesformStatus);
 
   const [b11, set_b11] = useState("");
   const [b12, set_b12] = useState("");
@@ -26,9 +25,7 @@ export default function SectionB1(props) {
   const [b114, set_b114] = useState("");
 
   const handleNext = (e) => {
-    console.log(e);
     e.preventDefault();
-    console.log("next clicked");
     if (
       checkfield(b11) &&
       checkfield(b12) &&
@@ -45,8 +42,26 @@ export default function SectionB1(props) {
       checkfield(b113) &&
       checkfield(b114)
     ) {
-      set_formStatus({ ...formStatus, sectionB1: true });
-      navigate({ pathname: "/survey/cces", hash: "sectionB2" });
+      const section_data = {
+        b11: b11,
+        b12: b12,
+        b13: b13,
+        b14: b14,
+        b15: b15,
+        b16: b16,
+        b17: b17,
+        b18: b18,
+        b19: b19,
+        b110: b110,
+        b111: b111,
+        b112: b112,
+        b113: b113,
+        b114: b114,
+      };
+      console.log("section b1:", formData);
+      formData.current.cces.sectionB1 = section_data;
+      set_formStatus_cces({ ...formStatus_cces, sectionB1: true });
+      setExpanded_cces("sectionB2");
     }
   };
 
@@ -59,20 +74,18 @@ export default function SectionB1(props) {
   return (
     <div>
       <form autoComplete="off" onSubmit={(e) => handleNext(e)}>
-        <Stack direciton="column" spacing={2} sx={{ padding: "1rem" }}>
+        <Stack direciton="column" spacing={2}>
           <OptionForm
             question={b11}
             set_question={set_b11}
             label=" Whether the school has a school safety or equivalent committee?"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b12}
             set_question={set_b12}
             label="Is there a clear list of committee members available with the school?"
             options={["Yes", "No"]}
-            // required
           />
 
           <OptionForm
@@ -80,7 +93,6 @@ export default function SectionB1(props) {
             set_question={set_b13}
             label="Are any of the school cabinet members part of the School safety committee?"
             options={["Yes", "No"]}
-            // required
           />
 
           <OptionForm
@@ -88,7 +100,6 @@ export default function SectionB1(props) {
             set_question={set_b14}
             label="Whether school has developed School Safety Plan (SSP) or equivalent?"
             options={["Yes", "No"]}
-            // required
           />
 
           <OptionForm
@@ -96,7 +107,6 @@ export default function SectionB1(props) {
             set_question={set_b15}
             label="Whether the schools’ School safety Plan have components of WASH ? "
             options={["Yes", "No"]}
-            // required
           />
 
           <OptionForm
@@ -104,63 +114,54 @@ export default function SectionB1(props) {
             set_question={set_b16}
             label=" If school ha"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b17}
             set_question={set_b17}
             label="were children actively involved in identifying  hazards in the school? "
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b18}
             set_question={set_b18}
             label="Is your school vulnerable to any natural disasters ? "
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b19}
             set_question={set_b19}
             label="what are the likely climate-related events/ natural hazards/ other risks, and their intensity  (State/ district may like to further add  rows and points to the lists, with few lines left to be filled by the school concerned)"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b110}
             set_question={set_b110}
             label="Has school done identified the impact of the above disasters on the WASH infrastructure in schools ? "
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b111}
             set_question={set_b111}
             label="Is the school located near any potential risk zone ?"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b112}
             set_question={set_b112}
             label="Does your school have a practice of conducting mock drills for disaster response?"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b113}
             set_question={set_b113}
             label="Is the swachhta action plan effective during  cyclone, heatwave, cold wave, floods, etc.?"
             options={["Yes", "No"]}
-            // required
           />
           <OptionForm
             question={b114}
             set_question={set_b114}
             label="Whether the WASH facilities in Schools are able to be effective during  drought, floods, cyclones, forest fire, landslide, etc."
             options={["Yes", "No"]}
-            // required
           />
           <NextButton type="submit" />
         </Stack>

@@ -1,604 +1,406 @@
-import {
-  Box,
-  Grid,
-  Stack,
-  Typography,
-  Select,
-  Input,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  TextField,
-  FormControlLabel,
-  Button,
-} from "@mui/material";
-import { css } from "@emotion/react";
-import { useState } from "react";
+import { Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+
+import TextField from "@mui/material/TextField";
 import { State, City } from "country-state-city";
-import { DatePicker } from "@mui/x-date-pickers";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import TextFieldComponent from "./text-field";
 import OptionForm from "./option-form";
+import NextButton from "./next-button";
+
+import { ccesformStatus } from "../contexts/formContexts";
 
 const SectionA = () => {
-  const [a1, setA1] = useState("");
-  const [a2, setA2] = useState("");
-  const [a3, setA3] = useState("");
-  const [a5, setA5] = useState("");
-  const [a4, setA4] = useState("");
-  const [a6, setA6] = useState("");
-  const [a7, setA7] = useState("");
-  const [a8, setA8] = useState("");
-  const [a9, setA9] = useState("");
-  const [a10, setA10] = useState("");
-  const [a11, setA11] = useState("");
-  const [a19, setA19] = useState("");
-  const [a17, setA17] = useState("");
-  const [a12, setA12] = useState("");
-  const [a13, setA13] = useState("");
-  const [a14, setA14] = useState("");
-  const [a15, setA15] = useState("");
-  const [a16, setA16] = useState("");
-  // const [a17, setA17] = useState("");
-  const [a18, setA18] = useState("");
-  const [a20, setA20] = useState("");
-  const [a21, setA21] = useState("");
-  const [a22, setA22] = useState("");
-  const [state, setState] = useState("Enter your state");
-  const [cityList, setCityList] = useState([]);
-  const [city, setCity] = useState("Enter your city");
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces,formData } =
+    useContext(ccesformStatus);
 
+  const [a1, set_a1] = useState("");
+  const [a2, set_a2] = useState("");
+  const [a3, set_a3] = useState("");
+  const [a4, set_a4] = useState("");
+  const [a5, set_a5] = useState({
+    schoolPhone: "",
+    mobileNumber: "",
+    emailId: "",
+  });
+  const [a6, set_a6] = useState("");
+  const [a7, set_a7] = useState("");
+  const [a8, set_a8] = useState("");
+  const [a9, set_a9] = useState("");
+  const [a10, set_a10] = useState("");
+  const [a11, set_a11] = useState("");
+  const [a12, set_a12] = useState("");
+  const [a13, set_a13] = useState({
+    boys: "",
+    girls: "",
+  });
+  const [a14, set_a14] = useState({
+    boys: "",
+    girls: "",
+  });
+  const [a15, set_a15] = useState({
+    male: "",
+    female: "",
+  });
+  const [a16, set_a16] = useState("");
+  const [a17, set_a17] = useState("");
+  const [a18, set_a18] = useState("");
+  const [state, set_state] = useState("");
+  const [city, set_city] = useState("");
   const stateList = State.getStatesOfCountry("IN");
 
-  const styles = {
-    mainBox: css`
-      display: flex;
-      justify-content: center;
-    `,
-
-    bttn: css`
-      background: #110055;
-      color: #fafafa;
-      font-weight: bold;
-
-      &:hover {
-        background: green;
-        color: white;
-      }
-    `,
+  const checkfield = (field) => {
+    if (field && field !== "") {
+      return true;
+    } else return false;
   };
-  return (
-    <Box sx={styles.mainBox}>
-      <Grid container maxWidth={"lg"} display={"flex"} flexDirection={"column"}>
-        <Box sx={{ padding: "1rem" }}>
-          <Stack direction={"column"} spacing={6}>
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={6} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">Select your state</Typography>
-                  <Select
-                    value={state}
-                    defaultValue={"Select your state"}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e) => {
-                      console.log(e.target.value.name);
-                      setState(e.target.value);
-                      setCityList(
-                        City.getCitiesOfState("IN", e.target.value.isoCode)
-                      );
-                    }}
-                    fullWidth
-                    size="small"
-                  >
-                    {stateList.map((stateData, index) => (
-                      <MenuItem value={stateData} key={index}>
-                        {stateData.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Stack>
-              </Grid>
 
-              <Grid item md={6} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">Select your city</Typography>
-                  <Select
-                    value={city}
-                    defaultValue={"Select your City"}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e) => {
-                      console.log(e.target.value.name);
-                      setCity(e.target.value);
-                    }}
-                    fullWidth
-                    size="small"
-                  >
-                    {cityList.map((stateData, index) => (
-                      <MenuItem value={stateData} key={index}>
-                        {stateData.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
+  function handleNext(e) {
+    e.preventDefault();
+    // check all fields
+    const seciton_data = {
+      state: state,
+      city: city,
+      a1: a1,
+      a2: a2,
+      a3: a3,
+      a4: a4,
+      a5: a5,
+      a6: a6,
+      a7: a7,
+      a8: a8,
+      a9: a9,
+      a10: a10,
+      a11: a11,
+      a12: a12,
+      a13: a13,
+      a14: a14,
+      a15: a15,
+      a16: a16,
+      a17: a17,
+      a18: a18,
+    };
+    console.log("sectionA:",formData);
+    formData.current.cces.sectionA = seciton_data;
+    set_formStatus_cces({ ...formStatus_cces, sectionA: true });
+    setExpanded_cces("sectionB1");
+  }
+
+  return (
+    <div>
+      <form onSubmit={(e) => handleNext(e)}>
+        <Stack spacing={3} direction={"column"}>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
+            <FormControl required fullWidth>
+              <FormLabel id="demo-customized-select-label">
+                {"Select State"}
+              </FormLabel>
+              <Select
+                variant="outlined"
+                size="small"
+                value={state}
+                onChange={(e) => set_state(e.target.value)}
+              >
+                {stateList.map((item, index) => (
+                  <MenuItem key={index} value={item.isoCode}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl disabled={state === ""} fullWidth required>
+              <FormLabel id="demo-customized-select-label">
+                {"Select City"}
+              </FormLabel>
+              <Select
+                variant="outlined"
+                size="small"
+                value={city}
+                onChange={(e) => set_city(e.target.value)}
+              >
+                {City.getCitiesOfState("IN", state).map((item, index) => (
+                  <MenuItem key={index} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>
+                {state === "" ? "select a state first" : null}
+              </FormHelperText>
+            </FormControl>
 
             <TextFieldComponent
-              label="U-DISE Code"
               question={a1}
-              set_question={setA1}
-              type="text"
+              set_question={set_a1}
+              label="U-DISE Code"
+              required
+              type="string"
+              fullWidth
+            />
+          </Stack>
+
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <TextFieldComponent
+              question={a2}
+              set_question={set_a2}
+              label="Name of School and Address"
+              required
+              fullWidth
+              type="string"
+            />
+            <TextFieldComponent
+              question={a3}
+              set_question={set_a3}
+              label="Name of Respondent"
+              required
+              fullWidth
+              type="string"
+            />
+            <OptionForm
+              question={a4}
+              set_question={set_a4}
+              label="Designation of Respondent"
+              options={[
+                "Principal / Head Teacher",
+                "In-charge of the school",
+                "Teacher",
+                "Other staff of the school",
+              ]}
+              fullWidth
+            />
+          </Stack>
+
+          <div>
+            <Typography variant="subtitle1" color="secondary">
+              Contact Details of Respondent
+            </Typography>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+              <FormControl required fullWidth>
+                <FormLabel>School Phone Number</FormLabel>
+                <TextField
+                  value={a5.schoolPhone}
+                  onChange={(e) =>
+                    set_a5({ ...a5, schoolPhone: e.target.value })
+                  }
+                  type="number"
+                  required
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl required fullWidth>
+                <FormLabel>Mobile Number</FormLabel>
+                <TextField
+                  value={a5.mobileNumber}
+                  onChange={(e) =>
+                    set_a5({ ...a5, mobileNumber: e.target.value })
+                  }
+                  type="number"
+                  required
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl required fullWidth>
+                <FormLabel>Email Id</FormLabel>
+                <TextField
+                  value={a5.emailId}
+                  onChange={(e) => set_a5({ ...a5, emailId: e.target.value })}
+                  type="email"
+                  required
+                  size="small"
+                />
+              </FormControl>
+            </Stack>
+          </div>
+
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <OptionForm
+              fullWidth
+              question={a6}
+              set_question={set_a6}
+              label="School Management (Please select anyone)"
+              options={[
+                "Government schools",
+                "Govt- Kasturba Gandhi Balika Vidyalaya (KGBV)",
+                "Govt- Ekalavya Model Residential School",
+                "Government-aided Schools",
+                "Specified Category Schools - Kendriya Vidyalaya",
+                "Navodya Vidyalaya (JNV)",
+                "Sainik School",
+                "Private Schools",
+                "Others",
+              ]}
+            />
+            <OptionForm
+              fullWidth
+              question={a7}
+              set_question={set_a7}
+              label="School Type (Please select anyone)"
+              options={["Residential", "Non-Residential"]}
+            />
+            <OptionForm
+              fullWidth
+              question={a8}
+              set_question={set_a8}
+              label="Category of School"
+              options={[
+                "Primary only with grades 1-5",
+                "Upper primary with grades 1-8",
+                "Higher secondary with grades 1-12",
+                "Upper Primary only with grades 6-8",
+                "Higher secondary with grades 6-12",
+                "Secondary/ Sr. Secondary with grades 1-10",
+                "Secondary/ Sr. Secondary with grades 6-10",
+                "Secondary/ Sr. Secondary only with grades 9 & 10",
+                "Higher secondary with grade 9-12",
+                "Higher secondary/ Jr. College only with grades 11 & 12",
+              ]}
+            />
+          </Stack>
+
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <OptionForm
+              fullWidth
+              question={a9}
+              set_question={set_a9}
+              label="School type (Boys / Girls)"
+              options={[
+                "All boys' school",
+                "All-girls' school",
+                "Co-education",
+              ]}
+            />
+            <TextFieldComponent
+              fullWidth
+              question={a10}
+              set_question={set_a10}
+              label={"Year of Establishment of School"}
+              type="number"
               required
             />
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={6} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">Name of school</Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA2(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">Address of school</Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA3(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={6} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    Name of the respondent
-                  </Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA4(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">
-                    Designation of Respondent
-                  </Typography>
-                  <Select
-                    value={a4}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e) => setA4(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"Principal/Head Teacher"}>
-                      Principal/Head Teacher
-                    </MenuItem>
-                    <MenuItem value={"In-charge Head of the school"}>
-                      In-charge Head of the school
-                    </MenuItem>
-                    <MenuItem value={"Teacher"}>Teacher</MenuItem>
-                    <MenuItem value={"Other staff of the school"}>
-                      Other Staff of the school
-                    </MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={4} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">School Phone number:*</Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA5(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">Mobile No:*</Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA6(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">Email Id:*</Typography>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => setA7(e.target.value)}
-                  />
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={4} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    School Management (Please select anyone)*
-                  </Typography>
-                  <Select
-                    value={a8}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e) => setA8(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"Government schools"}>
-                      Government schools
-                    </MenuItem>
-                    <MenuItem
-                      value={"Govt- Kasturba Gandhi Balika Vidyalaya (KGBV)"}
-                    >
-                      Govt- Kasturba Gandhi Balika Vidyalaya (KGBV)
-                    </MenuItem>
-                    <MenuItem value={"Govt- Ekalavya Model Residential School"}>
-                      Govt- Ekalavya Model Residential School
-                    </MenuItem>
-                    <MenuItem value={" Government-aided Schools"}>
-                      Government-aided Schools
-                    </MenuItem>
-                    <MenuItem value={"Higher secondary with grades 6-12"}>
-                      Higher secondary with grades 6-12
-                    </MenuItem>
-                    <MenuItem
-                      value={"Specified Category Schools - Kendriya Vidyalaya"}
-                    >
-                      Specified Category Schools - Kendriya Vidyalaya
-                    </MenuItem>
-                    <MenuItem value={"Navodya Vidyalaya (JNV)"}>
-                      Navodya Vidyalaya (JNV)
-                    </MenuItem>
-                    <MenuItem value={"Sainik School  "}>
-                      Sainik School{" "}
-                    </MenuItem>
-                    <MenuItem value={"Private Schools"}>
-                      Private Schools
-                    </MenuItem>
-                    <MenuItem value={"Others"}>Other</MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">School type (use)</Typography>
-                  <Select
-                    value={a9}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e, newvalue) => setA9(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"Residential"}>Residential</MenuItem>
-                    <MenuItem value={"Non-Residential"}>
-                      Non-Residential
-                    </MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">Category of School</Typography>
-                  <Select
-                    value={a10}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e, newvalue) => setA10(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"Primary only with grades 1-5"}>
-                      Primary only with grades 1-5
-                    </MenuItem>
-                    <MenuItem value={"Upper primary with grades 1-8"}>
-                      Upper primary with grades 1-8 Govt- Kasturba Gandhi Balika
-                      Vidyalaya (KGBV)
-                    </MenuItem>
-                    <MenuItem value={"Higher secondary with grades 1-12"}>
-                      Higher secondary with grades 1-12
-                    </MenuItem>
-                    <MenuItem value={"Upper Primary only with grades 6-8"}>
-                      Upper Primary only with grades 6-8
-                    </MenuItem>
-                    <MenuItem value={"Higher secondary with grades 6-12"}>
-                      Higher secondary with grades 6-12
-                    </MenuItem>
-                    <MenuItem
-                      value={"Secondary/ Sr. Secondary with grades 1-10"}
-                    >
-                      Secondary/ Sr. Secondary with grades 1-10
-                    </MenuItem>
-                    <MenuItem
-                      value={"Secondary/ Sr. Secondary with grades 6-10"}
-                    >
-                      Secondary/ Sr. Secondary with grades 6-10
-                    </MenuItem>
-                    <MenuItem
-                      value={"Secondary/ Sr. Secondary only with grades 9 & 10"}
-                    >
-                      Secondary/ Sr. Secondary only with grades 9 & 10
-                    </MenuItem>
-                    <MenuItem value={"Higher secondary with grade 9-12"}>
-                      Higher secondary with grade 9-12
-                    </MenuItem>
-                    <MenuItem
-                      value={
-                        "Higher secondary/ Jr. College only with grades 11 & 12"
-                      }
-                    >
-                      Higher secondary/ Jr. College only with grades 11 & 12
-                    </MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={4} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    Year of Establishment of School*
-                  </Typography>
-                  <DatePicker
-                    value={a11}
-                    onChange={(e) => setA11(e.target.value)}
-                    views={["year"]}
-                    sx={{ width: "100%" }}
-                    slotProps={{ textField: { size: "small" } }}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">Location of School*</Typography>
-                  <Select
-                    value={a12}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e) => setA12(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"Rural Area"}>Rural Area</MenuItem>
-                    <MenuItem value={"Urban Area"}>Urban Area</MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">
-                    School type (boys / girls)*
-                  </Typography>
-                  <Select
-                    value={a13}
-                    defaultValue={""}
-                    // placeholder="Designation of Respondent"
-                    onChange={(e, newvalue) => setA13(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"All boys' school"}>
-                      All boys’ school
-                    </MenuItem>
-                    <MenuItem value={"All-girls' school"}>
-                      All-girls’ school
-                    </MenuItem>
-                    <MenuItem value={"Co-education"}>Co-education</MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">Name of Board</Typography>
-                  <RadioGroup
-                    defaultValue=""
-                    name="radio-buttons-group"
-                    value={a14}
-                    onChange={(e) => setA14(e.target.value)}
-                  >
-                    <Stack direction="row" spacing={2}>
-                      <FormControlLabel
-                        value="State"
-                        control={<Radio />}
-                        label="State"
-                      />
-                      <FormControlLabel
-                        value="others"
-                        control={<Radio />}
-                        label="Others specify board"
-                      />
-                      {a14 == "others" && (
-                        <Input
-                          placeholder="specify,"
-                          sx={{ marginTop: ".75rem", minWidth: "30%" }}
-                          required
-                        />
-                      )}
-                    </Stack>
-                  </RadioGroup>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={4} xs={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    Number of Students enrolled in School
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Input
-                      placeholder="Number of Boys"
-                      type="number"
-                      onChange={(e) => setA15(e.target.value)}
-                    />
-                    <Input
-                      placeholder="Number of Girls"
-                      type="number"
-                      onChange={(e) => setA16(e.target.value)}
-                    />
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">
-                    Number of Children with Special Needs:
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Input
-                      placeholder="Number of Boys"
-                      type="number"
-                      onChange={(e) => setA17(e.target.value)}
-                    />
-                    <Input
-                      placeholder="Number of Girls"
-                      type="number"
-                      onChange={(e) => setA18(e.target.value)}
-                    />
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
-                  direction={"column"}
-                  spacing={1}
-                  display={"flex"}
-                  justifyContent={"center"}
-                >
-                  <Typography variant="body1">
-                    Number of Teachers and Staff:
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Input
-                      placeholder="Number of Male"
-                      type="number"
-                      onChange={(e) => setA19(e.target.value)}
-                    />
-                    <Input
-                      placeholder="Number of Female"
-                      type="number"
-                      onChange={(e) => setA20(e.target.value)}
-                    />
-                  </Stack>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    Has the school developed Swachhata Action Plan (SAP)?*
-                  </Typography>
-                  <Select
-                    value={a21}
-                    defaultValue={""}
-                    onChange={(e, newvalue) => setA21(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"yes"}>yes</MenuItem>
-                    <MenuItem value={"no"}>no</MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack direction={"row"} spacing={4}>
-              <Grid item md={12}>
-                <Stack direction={"column"} spacing={1}>
-                  <Typography variant="body1">
-                    Is the school aware of the requirements of the Standard
-                    Operating Procedures (SOPs) for Sustaining Water, Sanitation
-                    & Hygiene in schools{" "}
-                    <span>
-                      (
-                      <a
-                        href="https://schooledn.py.gov.in/ssarmsa/pdf/SOP for WASH -
-                14-10-2021.pdf"
-                      >
-                        https://schooledn.py.gov.in/ssarmsa/pdf/SOP for WASH -
-                        14-10-2021.pdf
-                      </a>
-                      )?
-                    </span>
-                    *
-                  </Typography>
-                  <Select
-                    value={a22}
-                    defaultValue={""}
-                    onChange={(e, newvalue) => setA22(e.target.value)}
-                    size="small"
-                  >
-                    <MenuItem value={"yes"}>yes</MenuItem>
-                    <MenuItem value={"no"}>no</MenuItem>
-                  </Select>
-                </Stack>
-              </Grid>
-            </Stack>
-
-            <Stack
-              direction={"row"}
-              spacing={2}
-              sx={{ button: { minWidth: "160px" } }}
-            >
-              <Button color="success" sx={styles.bttn}>
-                Save Changes
-              </Button>
-            </Stack>
+            <OptionForm
+              fullWidth
+              question={a11}
+              set_question={set_a11}
+              label="Location of School"
+              options={["Urban", "Rural"]}
+            />
           </Stack>
-        </Box>
-      </Grid>
-    </Box>
+
+          <Stack direction="column" spacing={1}>
+            <FormControl fullWidth required>
+              <FormLabel id="text-field-label">
+                Number of students enrolled in school
+              </FormLabel>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <TextField
+                  value={a13.boys}
+                  placeholder="number of boys enrolled"
+                  onChange={(e) => set_a13({ ...a13, boys: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+                <TextField
+                  value={a13.girls}
+                  placeholder="number of girls enrolled"
+                  onChange={(e) => set_a13({ ...a13, girls: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+              </Stack>
+            </FormControl>
+
+            <FormControl fullWidth required>
+              <FormLabel id="text-field-label">
+                Number of Children with Special Needs
+              </FormLabel>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <TextField
+                  value={a14.boys}
+                  placeholder="number of boys enrolled"
+                  onChange={(e) => set_a14({ ...a14, boys: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+                <TextField
+                  value={a14.girls}
+                  placeholder="number of girls enrolled"
+                  onChange={(e) => set_a14({ ...a14, girls: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+              </Stack>
+            </FormControl>
+
+            <FormControl fullWidth required>
+              <FormLabel id="text-field-label">
+                Number of Teachers and Staff
+              </FormLabel>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <TextField
+                  value={a15.male}
+                  placeholder="number of male staff"
+                  onChange={(e) => set_a15({ ...a15, male: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+                <TextField
+                  value={a13.female}
+                  placeholder="number of female staff"
+                  onChange={(e) => set_a15({ ...a15, female: e.target.value })}
+                  size="small"
+                  type="number"
+                />
+              </Stack>
+            </FormControl>
+          </Stack>
+
+          <TextFieldComponent
+            fullWidth
+            question={a12}
+            set_question={set_a12}
+            label={"Name of Board"}
+            required
+            type="string"
+          />
+
+          <TextFieldComponent
+            fullWidth
+            question={a16}
+            set_question={set_a16}
+            label="Mention the star rating of awards obtained through SVP?"
+            type="string"
+            required
+          />
+
+          <OptionForm
+            fullWidth
+            question={a17}
+            set_question={set_a17}
+            label="Has the school developed Swachhata Action Plan (SAP)?"
+            options={["Yes", "No"]}
+          />
+
+          <OptionForm
+            fullWidth
+            question={a18}
+            set_question={set_a18}
+            label=" Is the school aware of the requirements of the Standard Operating Procedures (SOPs) for Sustaining Water, Sanitation & Hygiene in schools (https://schooledn.py.gov.in/ssarmsa/pdf/SOP for WASH - 14-10-2021.pdf)?"
+            options={["Yes", "No"]}
+          />
+
+          <NextButton type="submit" />
+        </Stack>
+      </form>
+    </div>
   );
 };
 

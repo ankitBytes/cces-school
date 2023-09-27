@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import OptionForm from "./option-form";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import Stack from "@mui/material/Stack";
+import OptionForm from "./option-form";
+import TextFieldComponent from "./text-field";
+
+import { ccesformStatus } from "../contexts/formContexts";
+import NextButton from "./next-button";
 
 export default function SectionB3() {
+  let currentDate = new Date();
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
+    useContext(ccesformStatus);
+
   const [b31, set_b31] = useState("");
   const [b32, set_b32] = useState("");
   const [b33, set_b33] = useState("");
-  const [b34, set_b34] = useState("");
+  const [b34, set_b34] = useState({
+    male: 0,
+    female: 0,
+  });
   const [b35, set_b35] = useState("");
   const [b36, set_b36] = useState("");
   const [b37, set_b37] = useState("");
@@ -26,9 +40,40 @@ export default function SectionB3() {
   const [b320, set_b320] = useState("");
   const [b321, set_b321] = useState("");
 
+  const handleNext = (e) => {
+    e.preventDefault();
+    const section_data = {
+      b31: b31,
+      b32: b32,
+      b33: b33,
+      b34: b34,
+      b35: b35,
+      b36: b36,
+      b37: b37,
+      b38: b38,
+      b39: b39,
+      b310: b310,
+      b311: b311,
+      b312: b312,
+      b313: b313,
+      b314: b314,
+      b315: b315,
+      b316: b316,
+      b317: b317,
+      b318: b318,
+      b319: b319,
+      b320: b320,
+      b321: b321,
+    };
+    console.log("section b3:", formData);
+    formData.current.cces.sectionB3 = section_data;
+    set_formStatus_cces({ ...formStatus_cces, sectionB3: true });
+    setExpanded_cces("sectionB4");
+  };
+
   return (
-    <div>
-      <Stack direciton="column" spacing={2} sx={{ padding: "1rem" }}>
+    <form onSubmit={(e) => handleNext(e)}>
+      <Stack direciton="column" spacing={2}>
         <OptionForm
           question={b31}
           set_question={set_b31}
@@ -51,6 +96,38 @@ export default function SectionB3() {
           ]}
         />
 
+        <TextFieldComponent
+          question={b33}
+          set_question={set_b33}
+          label={
+            "How many toilets seats in working condition does the school have for boys and girls"
+          }
+          type="number"
+          min="1900"
+          max={currentDate.getFullYear()}
+        />
+
+        <FormControl fullWidth required>
+          <FormLabel id="text-field-label">
+            How many urinals in working condition does the school have for boys
+            and girls?
+          </FormLabel>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+            <TextField
+              value={b34.male}
+              placeholder="number of male staff enrolled"
+              onChange={(e) => set_b34({ ...b34, male: e.target.value })}
+              size="small"
+            />
+            <TextField
+              value={b34.female}
+              placeholder="number of female staff enrolled"
+              onChange={(e) => set_b34({ ...b34, female: e.target.value })}
+              size="small"
+            />
+          </Stack>
+        </FormControl>
+
         <OptionForm
           question={b35}
           set_question={set_b35}
@@ -63,6 +140,13 @@ export default function SectionB3() {
         />
 
         <OptionForm
+          question={b36}
+          set_question={set_b36}
+          label="Does the school have a climate-resilient secured roof cover ?"
+          options={["yes", "No"]}
+        />
+
+        <OptionForm
           question={b37}
           set_question={set_b37}
           label="Do all the toilets in the school have secure door with latch and cloth hanging hooks? "
@@ -71,6 +155,13 @@ export default function SectionB3() {
             "Secured door with latch/bolt only",
             "Secured Door with latch/bolt and cloth hanging hooks",
           ]}
+        />
+
+        <OptionForm
+          question={b38}
+          set_question={set_b38}
+          label="Does the school's toilet have adequate ventilation for natural light and air?"
+          options={["yes", "No"]}
         />
 
         <OptionForm
@@ -187,7 +278,8 @@ export default function SectionB3() {
           label="Has the school cleared/demolished/disposed of the old dilapidated non-usable toilet blocks with appropriate permission from officials?"
           options={["yes", "No"]}
         />
+        <NextButton type="submit" />
       </Stack>
-    </div>
+    </form>
   );
 }

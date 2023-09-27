@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Stack from "@mui/material/Stack";
 import TextFieldComponent from "./text-field";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import OptionForm from "./option-form";
 import NextButton from "./next-button";
+import { ccesformStatus } from "../contexts/formContexts";
 
-export default function SectionB2(props) {
-  const { formStatus, set_formStatus } = props;
-  const navigate = useNavigate();
-
+export default function SectionB2() {
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
+    useContext(ccesformStatus);
   const [b21, set_b21] = useState("");
   const [b22, set_b22] = useState("");
   const [b23, set_b23] = useState("");
@@ -35,9 +34,7 @@ export default function SectionB2(props) {
   const [b223, set_b223] = useState("");
 
   const handleNext = (e) => {
-    console.log(e);
     e.preventDefault();
-    console.log("next clicked");
     if (
       checkfield(b21) &&
       checkfield(b22) &&
@@ -63,8 +60,35 @@ export default function SectionB2(props) {
       checkfield(b222) &&
       checkfield(b223)
     ) {
-      set_formStatus({ ...formStatus, sectionB2: true });
-      navigate({ pathname: "/survey/cces", hash: "sectionB3" });
+      const section_data = {
+        b21: b21,
+        b22: b22,
+        b23: b23,
+        b24: b24,
+        b25: b25,
+        b26: b26,
+        b27: b27,
+        b28: b28,
+        b19: b29,
+        b210: b210,
+        b211: b211,
+        b212: b212,
+        b213: b213,
+        b214: b214,
+        b215: b215,
+        b216: b216,
+        b217: b217,
+        b218: b218,
+        b219: b219,
+        b220: b220,
+        b221: b221,
+        b222: b222,
+        b223: b223,
+      };
+      console.log("section b2:", formData);
+      formData.current.cces.sectionB2 = section_data;
+      set_formStatus_cces({ ...formStatus_cces, sectionB2: true });
+      setExpanded_cces("sectionB3");
     }
   };
 
@@ -77,7 +101,7 @@ export default function SectionB2(props) {
   return (
     <div>
       <form onSubmit={(e) => handleNext(e)}>
-        <Stack direciton="column" spacing={2} sx={{ padding: "1rem" }}>
+        <Stack direciton="column" spacing={2}>
           <OptionForm
             question={b21}
             set_question={set_b21}

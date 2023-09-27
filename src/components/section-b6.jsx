@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
 
 import Stack from "@mui/material/Stack";
 import OptionForm from "./option-form";
 import NextButton from "./next-button";
+import { ccesformStatus } from "../contexts/formContexts";
 
-export default function SectionB6(props) {
-  const { formStatus, set_formStatus } = props;
-  const navigate = useNavigate();
+export default function SectionB6() {
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
+    useContext(ccesformStatus);
 
   const [b61, set_b61] = useState("");
   const [b62, set_b62] = useState("");
@@ -31,8 +30,19 @@ export default function SectionB6(props) {
       checkfield(b66) &&
       checkfield(b67)
     ) {
-      set_formStatus({ ...formStatus, sectionB6: true });
-      navigate({ pathname: "/survey/cces", hash: "sectionB7" });
+      const section_data = {
+        b61: b61,
+        b62: b62,
+        b63: b63,
+        b64: b64,
+        b65: b65,
+        b66: b66,
+        b67: b67,
+      };
+      console.log("section b6:", formData);
+      formData.current.cces.sectionB6 = section_data;
+      set_formStatus_cces({ ...formStatus_cces, sectionB6: true });
+      setExpanded_cces("sectionB7");
     }
   };
 
@@ -104,7 +114,3 @@ export default function SectionB6(props) {
     </>
   );
 }
-SectionB6.propTypes = {
-  formStatus: PropTypes.object.isRequired,
-  set_formStatus: PropTypes.func.isRequired,
-};

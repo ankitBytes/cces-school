@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <Container maxWidth="lg">
         Home page
-        <Link to="/survey">
+        <Link to={{pathname:"/survey",hash:"sectionA"}}>
           <Button variant="contained">go to survey</Button>
         </Link>
       </Container>
