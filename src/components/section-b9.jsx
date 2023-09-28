@@ -6,8 +6,13 @@ import NextButton from "./next-button";
 import { ccesformStatus } from "../contexts/formContexts";
 
 const SectionB9 = () => {
-  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
-    useContext(ccesformStatus);
+  const {
+    formStatus_cces,
+    set_formStatus_cces,
+    setExpanded_cces,
+    formData,
+    set_tab,
+  } = useContext(ccesformStatus);
 
   const [b91, set_b91] = useState("");
   const [b92, set_b92] = useState("");
@@ -67,6 +72,7 @@ const SectionB9 = () => {
       formData.current.cces.sectionB9 = section_data;
       set_formStatus_cces({ ...formStatus_cces, sectionB9: true });
       setExpanded_cces(false);
+      set_tab(1);
     }
   };
 

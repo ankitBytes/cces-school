@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import TextField from "@mui/material/TextField";
 import { State, City } from "country-state-city";
@@ -10,6 +10,8 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
+
 import TextFieldComponent from "./text-field";
 import OptionForm from "./option-form";
 import NextButton from "./next-button";
@@ -17,7 +19,7 @@ import NextButton from "./next-button";
 import { ccesformStatus } from "../contexts/formContexts";
 
 const SectionA = () => {
-  const { formStatus_cces, set_formStatus_cces, setExpanded_cces,formData } =
+  const { formStatus_cces, set_formStatus_cces, setExpanded_cces, formData } =
     useContext(ccesformStatus);
 
   const [a1, set_a1] = useState("");
@@ -86,7 +88,7 @@ const SectionA = () => {
       a17: a17,
       a18: a18,
     };
-    console.log("sectionA:",formData);
+    console.log("sectionA:", formData);
     formData.current.cces.sectionA = seciton_data;
     set_formStatus_cces({ ...formStatus_cces, sectionA: true });
     setExpanded_cces("sectionB1");
@@ -184,27 +186,29 @@ const SectionA = () => {
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <FormControl required fullWidth>
                 <FormLabel>School Phone Number</FormLabel>
-                <TextField
+                <MuiTelInput
                   value={a5.schoolPhone}
-                  onChange={(e) =>
-                    set_a5({ ...a5, schoolPhone: e.target.value })
-                  }
-                  type="number"
-                  required
+                  defaultCountry={"IN"}
                   size="small"
+                  required
+                  onlyCountries={["IN"]}
+                  onChange={(newValue) => {
+                    set_a5({ ...a5, schoolPhone: newValue });
+                  }}
                 />
               </FormControl>
 
               <FormControl required fullWidth>
                 <FormLabel>Mobile Number</FormLabel>
-                <TextField
+                <MuiTelInput
                   value={a5.mobileNumber}
-                  onChange={(e) =>
-                    set_a5({ ...a5, mobileNumber: e.target.value })
-                  }
-                  type="number"
-                  required
+                  defaultCountry={"IN"}
                   size="small"
+                  required
+                  onlyCountries={["IN"]}
+                  onChange={(newValue) => {
+                    set_a5({ ...a5, mobileNumber: newValue });
+                  }}
                 />
               </FormControl>
 

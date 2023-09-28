@@ -80,7 +80,7 @@ const SectionAccordion = (props) => {
           </Typography>
         </Stack>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails sx={{background:"#eefffe"}}>
         {section_form === undefined || section_form === null ? (
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse

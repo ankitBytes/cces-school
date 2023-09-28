@@ -1,6 +1,6 @@
 {
     "cces": {
-        "secitonA": {
+        "sectionA": {
             "state": "State",
             "city": "City",
             "a1": "U-DISE Code",
@@ -85,6 +85,192 @@
             "b319": " has the school planned for specific for open drain, broken cover.  ",
             "b320": "Does the school have scheduled desludging of the faecal matter (preferably before monsoon), in coordination with nearby service provider?",
             "b321": "Has the school cleared/demolished/disposed of the old dilapidated non-usable toilet blocks with appropriate permission from officials?"
+        },
+        "sectionB4": {
+            "b41": "Does the school have a facility for hand-washing before Mid-Day Meal (MDM) / lunch where a group of children can practice hand washing at the same time?",
+            "b42": "Does the school provide soaps/ liquid handwash for handwashing before Mid-Day Meal (MDM) / lunch? ",
+            "b43": "Does the school have facility for hand-washing after the use of the toilet?",
+            "b44": "Does the school provide soaps for hand washing/liquid soap after use of toilets?",
+            "b45": "Is the height of hand-washing facilities suitable for children of all age groups in the school?",
+            "b46": "Does the school have a proper mechanism for wastewater disposal near all the hand washing unit?",
+            "b47": "Is the handwashing facility in the school secured against any potential risk or obstruction (for example electrical pole/ stand-alone structure/ tree nearby etc. that can damage in case of climate event/ natural hazard)?",
+            "b48": "Who supervises the practice of daily hand-washing with soap by students and cooks before Mid-Day Meal (MDM) / lunch?",
+            "b49": "Do all children wash their hands with soap before mid-day meal (MDM)/ Lunch?"
+        },
+        "sectionB5": {
+            "b51": "Has your school adopted the 5R's (refuse, reduce, reuse, repurpose, and then recycle) of waste management Standard Operating Procedures (SOP)?",
+            "b52": "Does the school provide dustbins in each classroom, kitchen area, toilet, and other appropriate locations for the collection of waste? (Multiple responses may be there)",
+            "b53": " Does the school segregate wet waste (bio-degradable waste) and dry waste (non-biodegradable waste)?",
+            "b54": "How does the school compost its own biodegradable waste (wet waste)?",
+            "b55": "If in previous question, school is not composting biodegradable waste in the school premises, what are the reasons for not doing so (wherever applicable)?",
+            "b56": "How does the school dispose of its non-biodegradable waste (dry waste)?",
+            "b57": "If in previous question, the school does not have any mechanism for safe disposal of non-biodegradable waste disposal, what are the reasons",
+            "b58": "Is the school premises clean (free from littering)?",
+            "b59": "Are the waste pits in your school secured from climate events such as floods (above the  the flood level/ have some kind of flood proofing arrangement) ?",
+            "b510": "Has the school taken any innovative measures for the reuse of waste material (such as using plastic bottles and toffee wrappers for making bricks for fencing of vegetation/plants)",
+            "b511": "Has school engaged children in understanding the waste management priority through activities such as waste audit, waste trails, waste journey, etc? ",
+            "b512": "Has school taken any measures to reduce, minimize or ban the use of single-use plastic?"
+        },
+        "sectionB6": {
+            "b61": "Has the school developed it's own school-level strategies/ standard operating procedures (SOP) for reducing energy consumption?",
+            "b62": "Has your school taken significant steps to maximize the usage of natural lighting throughout the building?",
+            "b63": "Does your school generate/use energy from any of the renewable sources, such as",
+            "b64": "Is there usage of LPG gas or other cleaner fuel sources for MDM ? ",
+            "b65": "Whether school use energy-efficient cookware, such as stove pressure cookers and/ or solar cookers? ",
+            "b66": " Has your school taken remarkable steps to limit carbon footprints, through key initiatives such as using non-motorized transport systems (walking, cycling, etc.), using public transportation systems or using fuel-efficient vehicles?",
+            "b67": "Has your school undertaken any assessment of electricity consumption in school?"
+        },
+        "sectionB7": {
+            "b71": "Whether the school premises are majorly covered with greeneries?  ",
+            "b72": "If the school does not have greeneries in its premises, what are the reasons? ",
+            "b73": "Does the plantation of the species selected in the school are appropriate to the soil type, climatic condition and topography?",
+            "b74": "Does the school maintain a plant diversity ?",
+            "b75": "Has the school planted (C4)  24 hour oxygen-generating plants/trees such as Banyan, Peepal, Tulsi, Money plant, Aloe Vera, etc.?",
+            "b76": "Does the school engage students in creative/ innovative ways in protecting, caring, and adopting plants/vegetation, including green fencing, etc.?",
+            "b77": "Has the school taken up noteworthy steps towards reducing noise pollution, including creating silent zones within and nearby the school campus ?"
+        },
+        "sectionB8": {
+            "b81": "Does the school follow standard practices/procedures for the operation and maintenance of WASH facilities?",
+            "b82": "Does the school have a boundary wall with secured gates ?",
+            "b83": "Does the school take care of the upkeeping, repair and maintenance of fitting and fixture of WASH facilities such as taps, flushing cistern, drainage pipes, overhead tank, wash basin etc. on a regular basis?",
+            "b84": "Does the school have a system for regular monitoring (e.g., through checklists or observation) of the cleaning of WASH facilities?",
+            "b85": "Does the school have access to adequate cleaning materials like disinfectants such as hypochlorite solutions, toilet cleaning liquids, soap, PPE etc.) ?",
+            "b86": "Does the school have access to adequate cleaning equipment (broom, shovels, mop, bucket etc)?'",
+            "b87": "Who supervises the cleaning and maintenance of the toilets in the school?",
+            "b88": "Does the school have an effective linkage with local service providers for material, plumbing, and technical support for timely repair of the WASH facilities? ",
+            "b89": "Is there an arrangement for any part/full-time cleaning/sanitation worker in the school?",
+            "b810": "Does the School Management Committee take active part in reviewing and addressing school WASH and operation and maintenance (functionality of water, toilet, handwashing & general cleanliness) related issues in their monthly meetings?",
+            "b811": "Do the Gram Panchayats (GPs)/Urban Local Bodies (ULBs) take an active part in reviewing and addressing school WASH and O&M issues?",
+            "b812": "Does the school' maintain adequate supplies (e.g., chlorine, portable water quality testing equipment etc.) for any emergency preparedness and response?",
+            "b813": "Whether school has been able to mobilize adequate resources for the climate-resilient school interventions?"
+        },
+        "sectionB9": {
+            "b91": "Does the school have any vision for a 'Climate resilient school/ Climate Smart School'? ",
+            "b92": "Does the school have at least 2 teachers trained in “climate resilient WASH services” ?",
+            "b93": "Did teachers receive regular training in school safety and disaster preparedness?",
+            "b94": "Are the SMCs/SSP members imparted with orientation/ training on climate resilient WinS? ",
+            "b95": "Are the GP/ULB members imparted with orientation/ training on climate resilient WinS?",
+            "b96": "Whether any student-led bodies/ group are there in schools to focus on  “climate resilient WASH services”?",
+            "b97": "Do student-led bodies play an active role in “Climate resilient WASH services”?",
+            "b98": "Is menstrual health management regularly discussed with or taught to students of appropriate age (at least once in 3 months)?",
+            "b99": "Has the school identified key climate action points to be focused among the school children?",
+            "b910": "Does the school take up the safe environment and climate education (including water, sanitation, and hygiene) through classroom/ session using suitable age-appropriate pedagogy including hands-on activities, project work, experiential learning, morning assembly, etc.?",
+            "b911": "Do students in the school are engaged in a Nature walk to explore, appreciate and learn the value of environmental conservation and biodiversity?",
+            "b912": "Does the school engage children in listing and understanding local traditional wisdom, culture, practices for environment conservation? ",
+            "b913": "Has the school taken any community outreach activities on climate-resilient WASH services in schools/ local settings?",
+            "b914": "Does the school conduct cultural programs and competitions (essay, painting, debate) on Climate resilient water, sanitation, hygiene services? ",
+            "b915": "Does the school display and use climate resilient water, Sanitation and Hygiene related posters and materials for promoting environmental and hygiene education? ",
+            "b916": "Does the school observe special days/ fortnights actively- such as World Env. Day, Earth Day, World Water Day, World Toilet Day/GHD/ World Hand Hygiene/ Swachhata Pakhwada?"
+        }
+    },
+    "sap": {
+        "section1": {
+            "a11": " Whether the school has a school safety or equivalent committee? ",
+            "a12": " Are any of the school cabinet members part of the School safety committee?",
+            "a13": " Whether school has developed School Safety Plan (SSP) or equivalent and WASH is included ? ",
+            "a14": "Is your school vulnerable to any natural disasters ? ",
+            "a15": " Has school done identified the impact of the above disasters on the WASH infrastructure in schools ? ",
+            "a16": "Does your school have a practice of conducting mock drills for disaster response?",
+            "a17": "Is the Swachata action plan effective during  cyclone, heatwave, cold wave, floods, etc.?",
+            "a18": "Whether the WASH facilities in Schools are able to be effective during  drought, floods, cyclones, forest fire, landslide, etc"
+        },
+        "section2": {
+            "a11": "Main source of drinking water in the school - Treated running water with water storage tank within the school premises ",
+            "a12": "Quantity of water available in the school for drinking - (at least 1.5 litter per child per day in non-residential & 5 litter per child per day in residential schools), a buffer of 2 days ",
+            "a13": "Drinking water stored in the school - Container/pitcher with lid and ladle, Container with taps",
+            "a14": "Drinking water treated regularly in school. (Boiling, Adding chlorine/ Bleaching powder (Chlorination), Filtration, Solar disinfection, Advanced treatment unit (RO, UV, micro-filtration, etc.)",
+            "a15": "Quality of drinking water tested - Tested twice in a year ",
+            "a16": "Number of functional drinking water point in the schools (1 per 20 students)",
+            "a17": "Main source of water for use in toilets - Continuous water supply through taps inside each toilet unit ",
+            "a18": "Main source of water for hand-washing after using toilets - Running water with taps at all the hand washing points ",
+            "a19": "Main source of water for hand washing before Mid-Day Meal (MDM) / lunch by students and cooks - Running water with taps at all the hand washing points ",
+            "a110": "Functional rain water harvesting facility in the school",
+            "a111": "If school has a storage structure/ tank for the RWH? What is the capacity in litres?  ",
+            "a112": " Whether the school use rainwater for drinking water and other purposes (wherever applicable)?",
+            "a113": "How frequently school does thorough sanitary inspections of the water source (including water points) in the school?",
+            "a114": "Does the school have adopted any of the following water use reduction strategies?",
+            "a115": "Does the school have a robust mechanism of frequent monitoring and instant repair leakage and wastage of water?",
+            "a116": "Is the school (including campus, building, classrooms, etc.) located above the flood levels?",
+            "a117": "Are the school premises free of water logging? ",
+            "a118": "Which among the following greywater (e.g. wastewater near a water source, from the kitchen, utensil washing, etc. ) management system/infrastructure (including treatment) is/ are adopted in the school? ",
+            "a119": "Has the school done a water budgeting exercise with the students of the appropriate age, last year?",
+            "a120": "Has the school conducted local awareness drives on water conservation and management drive in the community/ locality?"
+        },
+        "section3": {
+            "a11": "School has separate toilet units (1 toilet seat and 3 urinals) in working condition for boys and girls - there is at least one toilet unit each for boys and girls. ",
+            "a12": "How many toilets seats in working condition does the school have for boys and girls: Boys",
+            "a13": "How many toilets seats in working condition does the school have for boys and girls: Girls",
+            "a14": "How many urinals does the school have for boys and girls: Boys",
+            "a15": "How many urinals does the school have for boys and girls: Girls",
+            "a16": "School has toilets for Children with Special Needs (CWSN) - The school has at least one separate toilet for CWSN with ramp, handrail, wide door for wheelchair entry and support structure inside toilet.",
+            "a17": "The height and size of toilet and urinal facilities suitable for children of all age groups in the school",
+            "a18": " What are the most common type of toilet used by the students at the school?",
+            "a19": "School has separate toilets for Teachers and Staff - Teachers and staff use the toilets meant for students",
+            "a110": "All the toilets in the school have secure door with latch and cloth hanging hooks - Door with latch/bolt and cloth hanging hooks.",
+            "a111": "The toilets have roof and.  proper ventilation for natural light and air",
+            "a112": "School has separate dustbins with lid for disposal of sanitary waste?",
+            "a113": " Which of the option is used by the school for safe treatment/ disposal for of sanitary waste? (Electric Incinerator, is one of the options that functions at high temperature, and environmentally safe) ",
+            "a114": "What is the main mechanism for disposal of toilet waste / faecal sludge",
+            "a115": "Are any toilets in the school prone to the impact of climate/natural hazards (as floods/ drought/seasonal water scarcity etc)?",
+            "a116": "Has the school taken appropriate measures to ensure disaster-resilient toilets in view of the local hazard/disaster vulnerability context ",
+            "a117": "Does the school have scheduled desludging of the faecal matter (preferably before monsoon), in coordination with nearby service provider?"
+        },
+        "section4": {
+            "a11": "School has facility for handwashing after use of toilet - Wash basin for hand washing either inside or attached to every toilet unit ",
+            "a12": " School provide soaps for hand washing after use of toilets - Soaps are available at all the hand washing points all the time",
+            "a13": "School has facility for handwashing before Mid-Day Meal (MDM) / lunch where a group of children can practice hand washing at the same time - Yes, with water from taps",
+            "a14": "School provide soaps for handwashing before Mid-Day Meal (MDM) / lunch - Soaps are available at all the handwashing points at all the times",
+            "a15": "All children wash their hands with soap before mid-day meal (MDM)/ Lunch - All children wash their hands with soap",
+            "a16": "Is the height of handwashing facilities suitable for children of all age groups in the school ",
+            "a17": "Does the school have a proper mechanism for wastewater disposal near all the hand washing unit?",
+            "a18": "Does the school have developed some kind of recording system of daily handwashing with soap before the mid-day meal?"
+        },
+        "section5": {
+            "a11": "School provide dustbins in each class room, kitchen area, toilets and at other appropriate locations for collection of waste",
+            "a12": "Does the school segregate wet waste (bio-degradable waste) and dry waste (non- biodegradable waste)?",
+            "a13": "How does the school compost its own biodegradable waste (wet waste)? (Yes in school premises)",
+            "a14": "How does the school dispose its, non- biodegradable waste",
+            "a15": "Is the school premises clean (free from littering)?",
+            "a16": "School premises clean and free of water logging"
+        },
+        "section6": {
+            "a11": "The classrooms and teaching areas cleaned daily",
+            "a12": "The frequency of cleaning toilets – Daily",
+            "a13": "Toilets cleaned with appropriate cleaning material - Cleaned daily with soaping agent and disinfectant",
+            "a14": "Who supervises the cleaning and maintenance of the toilets in the school? ",
+            "a15": "Whether school takes up the upkeep/maintenance of fitting and fixture of toilets etc on regular basis ",
+            "a16": "School Management Committee take active part in reviewing and addressing school WASH & O&M",
+            "a17": "Does the Gram Panchayat looks after water, sanitation facilities in schools& school receive any funds from Gram for the  operation & maintenance (O&M) of this facilities?",
+            "a18": "Has school taken any measures to reduce, minimize or ban the use of single-use plastic?",
+            "a19": "Has your school adopted the 5R's (refuse, reduce, reuse, repurpose, and then recycle) of waste management Standard Operating Procedures (SOP)?",
+            "a110": "Has the school taken any innovative measures for the reuse of waste material (such as using plastic bottles and toffee wrappers for making bricks for fencing of vegetation/plants)",
+            "a111": " Has school engaged children in understanding the waste management priority through activities such as waste audit, waste trails, waste journey, etc? ",
+            "a112": "Whether school has been able to mobilize adequate resources for the climate-resilient school interventions?",
+            "a113": " Does the school' maintain adequate supplies (e.g., chlorine, portable water quality testing equipment etc.) for any emergency preparedness and response?"
+        },
+        "section7": {
+            "a11": "Has the school developed it's own school-level strategies/ standard operating procedures (SOP) for reducing energy consumption?",
+            "a12": " Has your school taken significant steps to maximize the usage of natural lighting throughout the building?",
+            "a13": "Does your school generate/use energy from any of the renewable sources",
+            "a14": " Whether school use energy-efficient cookware, such as stove pressure cookers and/ or solar cookers?",
+            "a15": " Has your school undertaken any assessment of electricity consumption in school?"
+        },
+        "section8": {
+            "a11": " Does the plantation of the species selected in the school are appropriate to the soil type, climatic condition and topography?",
+            "a12": " Has the school planted   24 hour oxygen-generating plants/trees such as Banyan, Peepal, Tulsi, Money plant, Aloe Vera, etc.?",
+            "a13": "Has the school taken up noteworthy steps towards reducing noise pollution, including creating silent zones within and nearby the school campus ?"
+        },
+        "section9": {
+            "a11": "School has at least 2 teachers trained in sanitation and hygiene education",
+            "a12": "School have a Child cabinet (Bal Sansad) that takes an active role in promoting sanitation and hygiene practices",
+            "a13": "Supervision of practice of daily handwashing with soap by students and cooks before Mid-Day Meal (MDM) / lunch - Dedicated team of teachers/staff members and child cabinet members",
+            "a14": "School take up safe hygiene and sanitation education including awareness on hand-washing during morning assembly and in school clubs",
+            "a15": "Menstrual health management discussed with girl students - At least once every month ",
+            "a16": "School regularly conducts cultural programs and competitions (Essay, painting, debate) on hygiene and sanitation",
+            "a17": "School display and use Water, Sanitation and Hygiene related posters and materials for promoting hygiene education",
+            "a18": "Has the school taken any community outreach activities on climate-resilient WASH services in schools/ local settings?",
+            "a19": " Does the school display and use climate resilient water, Sanitation and Hygiene related posters and materials for promoting environmental and hygiene education? ",
+            "a110": "Does the school observe special days/ fortnights actively- such as World Env. Day, Earth Day, World Water Day, World Toilet Day/GHD/ World Hand Hygiene/ Swachhata Pakhwada? "
         }
     }
 }

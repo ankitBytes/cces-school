@@ -35,6 +35,10 @@ function App() {
                 }
               />
             </Route>
+            <Route
+              path="/successfulsubmission"
+              element={<SuccessfulSubmission />}
+            />
             <Route path="*" element={<h1>Not Found</h1>} />
           </>
         </Routes>
@@ -52,5 +56,14 @@ function RequireAuth({ children }) {
     children
   ) : (
     <Navigate to={"/admin/login"} state={{ from: location }} />
+  );
+}
+
+function SuccessfulSubmission() {
+  return (
+    <div style={{ display: "flex", marginTop: "5rem" }}>
+      <h1>Thank you for submitting the form</h1>
+      <p>Your response has been recorded.</p>
+    </div>
   );
 }

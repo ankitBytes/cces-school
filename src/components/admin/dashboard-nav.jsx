@@ -40,7 +40,7 @@ const DashboardNav = (props) => {
   };
 
   return (
-    <Box sx={{ background: "#ccf" }}>
+    <Box sx={{ background: "#00aeef" }}>
       <Container maxWidth="lg">
         <Stack
           direction="row"
@@ -48,7 +48,7 @@ const DashboardNav = (props) => {
           justifyContent={"space-between"}
           sx={{ padding: ".5rem" }}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold", color:"#000" }}>
             Admin Dashboard
           </Typography>
 
