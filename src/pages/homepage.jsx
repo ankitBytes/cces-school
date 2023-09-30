@@ -1,16 +1,18 @@
 import React from "react";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import NavBar from "../components/common/NavBar";
+import Footer from "../components/common/Footer";
+import Hero from "../components/landing/Hero";
+import About from "../components/landing/about";
+import Blogs from "../components/landing/Blogs";
+
 export default function Home() {
   return (
     <div>
-      <Container maxWidth="lg">
-        Home page
-        <Link to={{pathname:"/survey",hash:"sectionA"}}>
-          <Button variant="contained">go to survey</Button>
-        </Link>
-      </Container>
+      <NavBar />
+      <Hero />
+      <About />
+      <Blogs />
+      <Footer />
     </div>
   );
 }

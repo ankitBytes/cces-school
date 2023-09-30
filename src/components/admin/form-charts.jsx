@@ -2,35 +2,23 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import { Grid } from "@mui/material";
 
 import { PieChart } from "@mui/x-charts/PieChart";
-import { onSnapshot, collection } from "firebase/firestore";
-import { db } from "../../firebase";
 
-import questions from "../../data/questions.json";
+// meta data
+import chartquestions from "../../data/chart-fields.json";
+
+// context api
+import { serverData } from "../../contexts/formContexts";
 
 // components
 import CustomTabPanel from "../custom-tab-panel";
 
 export default function FormDataCharts() {
   const [ccestab, set_ccestab] = useState(0);
-  const [ccesData, set_ccesData] = useState([]);
-
-  // console.log(questions);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "UnicefSurveyCces"),
-      (snapshot) => {
-        const updatedList = snapshot.docs.map((doc) => doc.data());
-        set_ccesData(updatedList);
-        console.log(updatedList);
-      }
-    );
-    return () => unsubscribe(); // Unsubscribe from the snapshot listener when the component unmounts
-  }, []);
+  const { ccesData } = useContext(serverData);
 
   return (
     <Box
@@ -61,17 +49,19 @@ export default function FormDataCharts() {
         return (
           <CustomTabPanel value={ccestab} index={index} key={index}>
             <Grid container spacing={2} sx={{ padding: ".5rem 0" }}>
-              {Object.keys(questions.cces[section]).map((questionId, index) => {
-                return (
-                  <Grid item xs={12} md={6} key={index}>
-                    <QuestionChart
-                      data={ccesData}
-                      section={section}
-                      questionId={questionId}
-                    />
-                  </Grid>
-                );
-              })}
+              {Object.keys(chartquestions.cces[section])?.map(
+                (questionId, index) => {
+                  return (
+                    <Grid item xs={12} md={6} key={index}>
+                      <QuestionChart
+                        data={ccesData}
+                        section={section}
+                        questionId={questionId}
+                      />
+                    </Grid>
+                  );
+                }
+              )}
             </Grid>
           </CustomTabPanel>
         );
@@ -103,13 +93,13 @@ function QuestionChart({ data, section, questionId }) {
   Object.keys(counts).map((item, index) => {
     finalData.push({ id: index, label: item, value: counts[item] });
   });
-  console.log(finalData);
+
   return (
     <Box
       sx={{ padding: ".5rem", borderRadius: ".5rem", background: "#B1D5ED" }}
     >
       <Typography variant="subtitle1">
-        {questions.cces[section][questionId]}
+        {chartquestions.cces[section][questionId]}
       </Typography>
       <Box sx={{ width: "400px", height: 300 }}>
         <PieChart

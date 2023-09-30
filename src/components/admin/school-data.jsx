@@ -1,9 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DataGrid } from "@mui/x-data-grid";
-import { useState, useEffect } from "react";
-import { onSnapshot, collection, doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { useState, useContext } from "react";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
@@ -12,10 +10,16 @@ import Tab from "@mui/material/Tab";
 import CustomTabPanel from "../custom-tab-panel";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+
+// meta data
 import questions from "../../data/questions.json";
 
+import { serverData } from "../../contexts/formContexts";
+import PropTypes from "prop-types";
+
 export default function SchoolDataTab() {
-  const [schools, set_schools] = useState([]);
+  const { primaryData, ccesData, sapData } = useContext(serverData);
+
   const [ccesformModal, set_ccesformModal] = useState({
     open: false,
     uDiseCode: "",
@@ -25,26 +29,7 @@ export default function SchoolDataTab() {
     uDiseCode: "",
   });
 
-  const [cces_formData, set_ccesFormData] = useState([]);
-  const [sapData, set_sapData] = useState([]);
-
-  useEffect(() => {
-    let unsubscribe = onSnapshot(collection(db, "SchoolInfo"), (snapshot) => {
-      const updatedList = snapshot.docs.map((doc) => doc.data());
-      set_schools(updatedList);
-      // console.log(updatedList);
-    });
-
-    unsubscribe = onSnapshot(collection(db, "UnicefSurveyCces"), (snapshot) => {
-      const updatedData = snapshot.docs.map((doc) => doc.data());
-      set_ccesFormData(updatedData);
-      // console.log("cces", updatedData);
-    });
-
-    return () => unsubscribe(); // Unsubscribe from the snapshot listener when the component unmounts
-  }, []);
-
-  const rows = schools.map((school, index) => {
+  const rows = primaryData.map((school, index) => {
     return {
       id: index,
       col1: school.uDiseCode,
@@ -73,25 +58,20 @@ export default function SchoolDataTab() {
       headerName: "Sap Data",
       width: 120,
       renderCell: () => <OpenInNewIcon />,
+      disableClickEventBubbling: true,
     },
   ];
 
-  async function fetchDocument(schoolCode) {
-    const docRef = doc(db, "UnicefSurveySap", schoolCode);
-    const docSnap = await getDoc(docRef);
-    set_sapData(docSnap.data());
-  }
-
   const handleCellClick = (params, event) => {
-    console.log("params", params);
     const uDiseCode = params.row.col1;
+    console.log(uDiseCode);
     if (params.field === "col6") {
       set_ccesformModal({ open: true, uDiseCode: uDiseCode });
     } else if (params.field === "col7") {
-      fetchDocument(uDiseCode);
       set_sapformModal({ open: true, uDiseCode: uDiseCode });
     }
   };
+
   return (
     <Box
       sx={{
@@ -112,22 +92,46 @@ export default function SchoolDataTab() {
       <CcesFormDataModal
         open={ccesformModal}
         set_open={set_ccesformModal}
-        cces_formData={cces_formData}
+        formData={ccesData}
       />
       <SapFormDataModal
         open={sapformModal}
         set_open={set_sapformModal}
-        sapData={sapData}
+        formData={sapData}
       />
     </Box>
   );
 }
 
+const ccesSectionList = {
+  sectionA: "Primary Information",
+  sectionB1: "Risk assessment, analysis, preventive measures, Plan",
+  sectionB2: "Water",
+  sectionB3: "Sanitation",
+  sectionB4: "Handwashing with soap",
+  sectionB5: "Waste Management",
+  sectionB6: "Energy",
+  sectionB7: "Environment",
+  sectionB8: "O and M",
+  sectionB9: "Capacity Building and Behaviour Change",
+};
+
+const sapSectionList = {
+  section1: "Risk assessment, analysis, preventive measures, Plan",
+  section2: "Water",
+  section3: "Sanitation",
+  section4: "Handwashing with soap & water",
+  section5: "Waste Management",
+  section6: "O and M",
+  section7: "Energy",
+  section8: "Environment",
+  section9: "Behaviour Change and Capacity Building",
+};
+
 function CcesFormDataModal(props) {
-  const { open, set_open, cces_formData } = props;
+  const { open, set_open, formData } = props;
   const uDiseCode = open.uDiseCode;
-  const school = cces_formData.filter((item) => item.sectionA.a1 === uDiseCode);
-  console.log(school);
+  const school = formData.filter((item) => item.uDiseCode === uDiseCode);
 
   const [tab, set_tab] = useState(0);
   return (
@@ -180,179 +184,42 @@ function CcesFormDataModal(props) {
             scrollButtons="auto"
             variant="scrollable"
           >
-            {Object.values(ccesData).map((value, index) => (
+            {Object.values(ccesSectionList).map((value, index) => (
               <Tab label={value} key={index} />
             ))}
           </Tabs>
         </Box>
-        <CustomTabPanel value={tab} index={0}>
-          <Box>
-            {Object.keys(questions.cces["sectionA"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionA"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={1}>
-          <Box>
-            {Object.keys(questions.cces["sectionB1"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB1"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={2}>
-          <Box>
-            {Object.keys(questions.cces["sectionB2"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB2"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={3}>
-          <Box>
-            {Object.keys(questions.cces["sectionB3"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB3"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={4}>
-          <Box>
-            {Object.keys(questions.cces["sectionB4"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB4"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={5}>
-          <Box>
-            {Object.keys(questions.cces["sectionB5"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB5"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={6}>
-          <Box>
-            {Object.keys(questions.cces["sectionB6"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB6"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={7}>
-          <Box>
-            {Object.keys(questions.cces["sectionB7"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB7"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={8}>
-          <Box>
-            {Object.keys(questions.cces["sectionB8"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB8"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={9}>
-          <Box>
-            {Object.keys(questions.cces["sectionB8"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB8"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={10}>
-          <Box>
-            {Object.keys(questions.cces["sectionB9"]).map((data, index) => (
-              <QuestionList
-                data={questions}
-                section={"sectionB9"}
-                questionId={data}
-                school={school}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
+
+        {Object.keys(ccesSectionList).map((section, index) => {
+          // console.log(questions.cces[section])
+          return (
+            <CustomTabPanel value={tab} index={index} key={index}>
+              <Stack direction={"column"} spacing={1}>
+                {Object.keys(questions.cces[section]).map((data, index) => (
+                  <QuestionListCces
+                    data={questions}
+                    section={section}
+                    questionId={data}
+                    school={school}
+                    key={index}
+                  />
+                ))}
+              </Stack>
+            </CustomTabPanel>
+          );
+        })}
       </Box>
     </Modal>
   );
 }
 
-const ccesData = {
-  a: "Primary Information",
-  b1: "Risk assessment, analysis, preventive measures, Plan",
-  b2: "Water",
-  b3: "Sanitation",
-  b4: "Handwashing with soap",
-  b5: "Waste Management",
-  b6: "Energy",
-  b7: "Environment",
-  b8: "O and M",
-  b9: "Capacity Building and Behaviour Change",
-};
-
 function SapFormDataModal(props) {
-  const { open, set_open, sapData } = props;
+  const { open, set_open, formData } = props;
   const uDiseCode = open.uDiseCode;
-
-  console.log("questions ", questions.sap["section1"]);
-
+  // console.log(uDiseCode, typeof uDiseCode);
+  const school = formData.filter((item) => item.uDiseCode === uDiseCode);
   const [tab, set_tab] = useState(0);
+
   return (
     <Modal
       open={open.open}
@@ -382,7 +249,7 @@ function SapFormDataModal(props) {
           alignItems={"center"}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            SAP Section Data - {uDiseCode}
+            SAP Section Data
           </Typography>
 
           <Button
@@ -403,175 +270,84 @@ function SapFormDataModal(props) {
             scrollButtons="auto"
             variant="scrollable"
           >
-            {Object.values(sapDataList).map((value, index) => (
+            {Object.values(sapSectionList).map((value, index) => (
               <Tab label={value} key={index} />
             ))}
           </Tabs>
         </Box>
-        <CustomTabPanel value={tab} index={0}>
-          <Box>
-            {Object.keys(questions.sap["section1"]).map((data, index) => (
-              // console.log("inside the tab panel",questions.sap["section1"][data])
-              <QuestionListSap
-                data={questions}
-                section={"section2"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={1}>
-          <Box>
-            {Object.keys(questions.sap["section2"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section2"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={2}>
-          <Box>
-            {Object.keys(questions.sap["section3"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section3"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={3}>
-          <Box>
-            {Object.keys(questions.sap["section4"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section4"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={4}>
-          <Box>
-            {Object.keys(questions.sap["section5"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section5"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={5}>
-          <Box>
-            {Object.keys(questions.sap["section6"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section6"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={6}>
-          <Box>
-            {Object.keys(questions.sap["section7"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section7"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={7}>
-          <Box>
-            {Object.keys(questions.sap["section8"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section8"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={tab} index={8}>
-          <Box>
-            {Object.keys(questions.sap["section9"]).map((data, index) => (
-              <QuestionListSap
-                data={questions}
-                section={"section9"}
-                questionId={data}
-                school={sapData}
-                key={index}
-              />
-            ))}
-          </Box>
-        </CustomTabPanel>
+
+        {Object.keys(sapSectionList).map((section, index) => {
+          return (
+            <CustomTabPanel value={tab} index={index} key={index}>
+              <Stack direction={"column"} spacing={1}>
+                {Object.keys(questions.sap[section]).map((data, index) => (
+                  <QuestionListSap
+                    data={questions}
+                    section={section}
+                    questionId={data}
+                    school={school}
+                    key={index}
+                  />
+                ))}
+              </Stack>
+            </CustomTabPanel>
+          );
+        })}
       </Box>
     </Modal>
   );
 }
 
-const sapDataList = {
-  b1: "Risk assessment, analysis, preventive measures, Plan",
-  b2: "Water",
-  b3: "Sanitation",
-  b4: "Handwashing with soap & water",
-  b5: "Waste Management",
-  b6: "O and M",
-  b7: "Energy",
-  b8: "Environment",
-  b9: "Behaviour Change and Capacity Building",
-};
-
-function QuestionList({ data, section, questionId, school }) {
+function QuestionListCces({ data, section, questionId, school }) {
   const schoolData = school[0][section][questionId];
   return (
-    <Box>
+    <Box
+      sx={{ background: "#cef6ff", padding: ".5rem", borderRadius: ".5rem" }}
+    >
       <Typography fontWeight={"bold"}>
         Q) {data.cces[section][questionId]}
       </Typography>
 
-      {typeof schoolData === "object" ? (
-        Object.keys(schoolData).map((dataList, index) => (
-          <Typography key={index}>{schoolData[dataList]}</Typography>
-        ))
-      ) : (
-        <Typography>{schoolData}</Typography>
-      )}
+      <Box
+        sx={{
+          background: "#ceddff",
+          marginLeft: "1.5rem",
+          padding: ".125rem .75rem",
+          borderRadius: ".25rem",
+        }}
+      >
+        {typeof schoolData === "object" ? (
+          Object.keys(schoolData).map((dataList, index) => (
+            <Typography key={index}>{schoolData[dataList]}</Typography>
+          ))
+        ) : (
+          <Typography>{schoolData}</Typography>
+        )}
+      </Box>
     </Box>
   );
 }
 
 function QuestionListSap({ data, section, questionId, school }) {
-  console.log("school ", school[section][questionId]);
-  // console.log("question ", data.sap[section][questionId])
+  const schoolData = school[0][section][questionId];
   return (
-    <Box>
+    <Box
+      sx={{ background: "#cef6ff", padding: ".5rem", borderRadius: ".5rem" }}
+    >
       <Typography fontWeight={"bold"}>
         Q) {data.sap[section][questionId]}
       </Typography>
 
-      <Typography>{school[section][questionId]}</Typography>
+      <Box
+        sx={{
+          background: "#ceddff",
+          marginLeft: "1.5rem",
+          padding: ".125rem .75rem",
+          borderRadius: ".25rem",
+        }}
+      >
+        <Typography>{schoolData}</Typography>
+      </Box>
     </Box>
   );
 }
